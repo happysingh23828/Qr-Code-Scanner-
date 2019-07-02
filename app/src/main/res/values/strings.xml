@@ -3,4 +3,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scan">Scan</string>
+    <string name="recent_scanned">Recent Scanned</string>
+    <string name="favourites">Favourites</string>
+    <string name="about_app">About App</string>
+    <string name="qr_code_scanner">QR Code Scanner</string>
+    <string name="by_androchef_youtube_channel">By AndroChef Youtube Channel</string>
 </resources>

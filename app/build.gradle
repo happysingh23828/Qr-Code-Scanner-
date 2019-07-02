@@ -35,4 +35,7 @@ dependencies {
 
     //QR Code Library
     implementation 'me.dm7.barcodescanner:zbar:1.9.13'
+
+    //Google Material Design
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
 }
