@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 import com.androchef.qrcodescanner.R
+import com.androchef.qrcodescanner.ui.QrCodeResultDialog
 import kotlinx.android.synthetic.main.fragment_qrscanner.*
 import kotlinx.android.synthetic.main.fragment_qrscanner.view.*
 import me.dm7.barcodescanner.zbar.Result
@@ -20,6 +21,8 @@ class QRScannerFragment : Fragment(),ZBarScannerView.ResultHandler {
     private lateinit var mView: View
 
     lateinit var scannerView: ZBarScannerView
+
+    lateinit var resultDialog : QrCodeResultDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_qrscanner, container, false)
@@ -33,6 +36,7 @@ class QRScannerFragment : Fragment(),ZBarScannerView.ResultHandler {
     }
 
     private fun initializeQRCamera() {
+        resultDialog = QrCodeResultDialog(context!!)
         scannerView = ZBarScannerView(context)
         scannerView.setResultHandler(this)
         scannerView.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorTranslucent))
@@ -50,11 +54,11 @@ class QRScannerFragment : Fragment(),ZBarScannerView.ResultHandler {
 
     override fun handleResult(rawResult: Result?) {
         onQrResult(rawResult?.contents)
-        resetPreview()
     }
 
     private fun onQrResult(contents: String?) {
-        Toast.makeText(context!!,contents,Toast.LENGTH_SHORT).show()
+        resultDialog.show(contents!!)
+        resetPreview()
     }
 
     private fun startQRCamera() {
@@ -86,5 +90,20 @@ class QRScannerFragment : Fragment(),ZBarScannerView.ResultHandler {
     private fun offFlashLight() {
         mView.flashToggle.isSelected = false
         scannerView.flash = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        scannerView.setResultHandler(this)
+        scannerView.startCamera()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        scannerView.stopCamera()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         onClicks()
+        startQRScannerFragment()
     }
 
     private fun onClicks() {
