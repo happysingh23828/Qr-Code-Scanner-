@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -38,4 +40,13 @@ dependencies {
 
     //Google Material Design
     implementation 'com.google.android.material:material:1.1.0-alpha07'
+
+    //Room DB Library
+    def room_version = "2.1.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Debugging
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
 }
