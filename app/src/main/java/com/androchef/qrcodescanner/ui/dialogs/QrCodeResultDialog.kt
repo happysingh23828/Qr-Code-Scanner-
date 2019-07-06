@@ -103,7 +103,7 @@ class QrCodeResultDialog(var context: Context) {
         txtIntent.type = "text/plain"
         txtIntent.putExtra(
             Intent.EXTRA_TEXT,
-            dialog.scannedText.text.toString().plus("\n \nScanned By AndroChefQRScanner")
+            dialog.scannedText.text.toString()
         )
         context.startActivity(Intent.createChooser(txtIntent, "Share QR Result"))
     }
