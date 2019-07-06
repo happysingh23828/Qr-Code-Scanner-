@@ -48,6 +48,9 @@ class DbHelper(var qrResultDataBase: QrResultDataBase) : DbHelperI {
         qrResultDataBase.getQrDao().deleteAllFavouriteResult()
     }
 
+    /*
+    * This feature will add in future
+    * */
     private fun findResultType(result: String): String {
         return "TEXT"
     }
