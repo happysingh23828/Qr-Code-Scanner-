@@ -11,9 +11,8 @@ import com.androchef.qrcodescanner.db.DbHelper
 import com.androchef.qrcodescanner.db.DbHelperI
 import com.androchef.qrcodescanner.db.database.QrResultDataBase
 import com.androchef.qrcodescanner.db.entities.QrResult
+import com.androchef.qrcodescanner.utils.toFormattedDisplay
 import kotlinx.android.synthetic.main.layout_qr_result_show.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 /**
@@ -82,8 +81,7 @@ class QrCodeResultDialog(var context: Context) {
 
     fun show(recentQrResult: QrResult) {
         this.qrResult = recentQrResult
-        val simpleDateFormat = SimpleDateFormat("dd-mm-yyyy hh:mm a", Locale.US)
-        dialog.scannedDate.text = simpleDateFormat.format(qrResult!!.calendar.time)
+        dialog.scannedDate.text = qrResult?.calendar?.toFormattedDisplay()
         dialog.scannedText.text = qrResult!!.result
         dialog.favouriteIcon.isSelected = qrResult!!.favourite
         dialog.show()

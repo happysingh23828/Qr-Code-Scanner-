@@ -14,6 +14,8 @@ import com.androchef.qrcodescanner.db.DbHelperI
 import com.androchef.qrcodescanner.db.database.QrResultDataBase
 import com.androchef.qrcodescanner.db.entities.QrResult
 import com.androchef.qrcodescanner.ui.adapter.ScannedResultListAdapter
+import com.androchef.qrcodescanner.utils.gone
+import com.androchef.qrcodescanner.utils.visible
 import kotlinx.android.synthetic.main.fragment_scanned_history.view.*
 import kotlinx.android.synthetic.main.layout_header_history.view.*
 import java.io.Serializable
@@ -139,14 +141,14 @@ class ScannedHistoryFragment : Fragment() {
     }
 
     private fun showRecyclerView() {
-        mView.layoutHeader.removeAll.visibility = View.VISIBLE
-        mView.scannedHistoryRecyclerView.visibility = View.VISIBLE
-        mView.noResultFound.visibility = View.GONE
+        mView.layoutHeader.removeAll.visible()
+        mView.scannedHistoryRecyclerView.visible()
+        mView.noResultFound.gone()
     }
 
     private fun showEmptyState() {
-        mView.layoutHeader.removeAll.visibility = View.GONE
-        mView.scannedHistoryRecyclerView.visibility = View.GONE
-        mView.noResultFound.visibility = View.VISIBLE
+        mView.layoutHeader.removeAll.gone()
+        mView.scannedHistoryRecyclerView.gone()
+        mView.noResultFound.visible()
     }
 }

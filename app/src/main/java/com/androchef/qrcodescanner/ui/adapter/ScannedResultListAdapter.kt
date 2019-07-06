@@ -10,14 +10,19 @@ import com.androchef.qrcodescanner.R
 import com.androchef.qrcodescanner.db.DbHelperI
 import com.androchef.qrcodescanner.db.entities.QrResult
 import com.androchef.qrcodescanner.ui.dialogs.QrCodeResultDialog
+import com.androchef.qrcodescanner.utils.gone
+import com.androchef.qrcodescanner.utils.toFormattedDisplay
+import com.androchef.qrcodescanner.utils.visible
 import kotlinx.android.synthetic.main.layout_single_item_qr_result.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Developed by Happy on 6/7/19
  */
-class ScannedResultListAdapter(var dbHelperI: DbHelperI,var context: Context, private var listOfScannedResult: MutableList<QrResult>) :
+class ScannedResultListAdapter(
+    var dbHelperI: DbHelperI,
+    var context: Context,
+    private var listOfScannedResult: MutableList<QrResult>
+) :
     RecyclerView.Adapter<ScannedResultListAdapter.ScannedResultListViewHolder>() {
 
     private var resultDialog: QrCodeResultDialog =
@@ -38,24 +43,18 @@ class ScannedResultListAdapter(var dbHelperI: DbHelperI,var context: Context, pr
     }
 
     override fun onBindViewHolder(holder: ScannedResultListViewHolder, position: Int) {
-        holder.bind(listOfScannedResult[position],position)
+        holder.bind(listOfScannedResult[position], position)
     }
 
     inner class ScannedResultListViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(qrResult: QrResult, position: Int) {
+            view.result.text = qrResult.result!!
+            view.tvTime.text = qrResult.calendar.toFormattedDisplay()
             setResultTypeIcon(qrResult.resultType)
             setFavourite(qrResult.favourite)
-            setTime(qrResult.calendar)
-            view.result.text = qrResult.result!!
-            onClicks(qrResult,position)
+            onClicks(qrResult, position)
         }
-
-        private fun setTime(calendar: Calendar) {
-            val simpleDateFormat = SimpleDateFormat("dd-mm-yyyy hh:mm a", Locale.US)
-            view.tvTime.text = simpleDateFormat.format(calendar.time)
-        }
-
 
         private fun setResultTypeIcon(resultType: String?) {
 
@@ -63,9 +62,9 @@ class ScannedResultListAdapter(var dbHelperI: DbHelperI,var context: Context, pr
 
         private fun setFavourite(isFavourite: Boolean) {
             if (isFavourite)
-                view.favouriteIcon.visibility = View.VISIBLE
+                view.favouriteIcon.visible()
             else
-                view.favouriteIcon.visibility = View.GONE
+                view.favouriteIcon.gone()
         }
 
 
@@ -75,16 +74,16 @@ class ScannedResultListAdapter(var dbHelperI: DbHelperI,var context: Context, pr
             }
 
             view.setOnLongClickListener {
-                showDeleteDialog(qrResult,position)
+                showDeleteDialog(qrResult, position)
                 return@setOnLongClickListener true
             }
         }
 
         private fun showDeleteDialog(qrResult: QrResult, position: Int) {
-            AlertDialog.Builder(context,R.style.CustomAlertDialog).setTitle(context.getString(R.string.delete))
+            AlertDialog.Builder(context, R.style.CustomAlertDialog).setTitle(context.getString(R.string.delete))
                 .setMessage(context.getString(R.string.want_to_delete))
                 .setPositiveButton(context.getString(R.string.delete)) { _, _ ->
-                    deleteThisRecord(qrResult,position)
+                    deleteThisRecord(qrResult, position)
                 }
                 .setNegativeButton(context.getString(R.string.cancel)) { dialog, _ ->
                     dialog.cancel()
