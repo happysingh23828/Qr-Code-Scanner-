@@ -7,7 +7,9 @@ import com.androchef.qrcodescanner.db.entities.QrResult
  */
 interface DbHelperI {
 
-    fun insertQRResult(qrResult: QrResult)
+    fun insertQRResult(result: String): Int
+
+    fun getQRResult(id: Int): QrResult
 
     fun addToFavourite(id: Int): Int
 
@@ -18,4 +20,8 @@ interface DbHelperI {
     fun getAllQRScannedResult(): List<QrResult>
 
     fun getAllFavouriteQRScannedResult(): List<QrResult>
+
+    fun deleteAllQRScannedResult()
+
+    fun deleteAllFavouriteQRScannedResult()
 }

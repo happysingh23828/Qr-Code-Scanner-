@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2B2828">
+            android:background="@color/darkBrown">
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cancelDialog"
@@ -69,13 +69,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                app:layout_constraintTop_toTopOf="@+id/favouriteAdd"
-                app:layout_constraintBottom_toBottomOf="@+id/favouriteAdd"
+                app:layout_constraintTop_toTopOf="@+id/favouriteIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/favouriteIcon"
                 app:layout_constraintVertical_bias="0.32"
                 android:id="@+id/copyResult"
                 app:layout_constraintStart_toEndOf="@+id/shareResult"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/favouriteAdd"/>
+                app:layout_constraintEnd_toStartOf="@+id/favouriteIcon"/>
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/favouriteAdd"
+                android:id="@+id/favouriteIcon"
                 app:layout_constraintStart_toEndOf="@+id/copyResult"
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toBottomOf="@+id/scannedDate"
                 android:layout_marginTop="32dp" app:layout_constraintBottom_toBottomOf="parent"

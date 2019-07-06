@@ -18,4 +18,13 @@
         <item name="itemTextColor">@color/colorPrimaryDark</item>
         <item name="itemIconTint">@color/colorPrimaryDark</item>
     </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--Background Color-->
+        <item name="android:background">@color/darkBrown</item>
+        <!--Buttons Colors-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--Title and Messages Color-->
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
 </resources>

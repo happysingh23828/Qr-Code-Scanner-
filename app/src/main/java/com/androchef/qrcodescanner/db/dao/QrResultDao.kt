@@ -15,18 +15,29 @@ interface QrResultDao {
     @Query("SELECT * FROM QrResult WHERE favourite = 1 ORDER BY time DESC")
     fun getAllFavouriteResult(): List<QrResult>
 
-    @Query("DELETE FROM QrResult WHERE id = :id")
-    fun deleteQrResult(id : Int) : Int
+    @Query("DELETE FROM QrResult")
+    fun deleteAllScannedResult()
 
-    @Insert
-    fun insertQrResult(qrResult: QrResult)
+    @Query("DELETE FROM QrResult WHERE favourite = 1")
+    fun deleteAllFavouriteResult()
+
+    @Query("DELETE FROM QrResult WHERE id = :id")
+    fun deleteQrResult(id: Int): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertQrResult(qrResult: QrResult): Long
+
+    @Query("SELECT * FROM QrResult WHERE id = :id")
+    fun getQrResult(id: Int): QrResult
 
     @Query("UPDATE QrResult SET favourite = 1 WHERE id = :id")
-    fun addToFavourite(id : Int) : Int
+    fun addToFavourite(id: Int): Int
 
     @Query("UPDATE QrResult SET favourite = 0 WHERE id = :id")
-    fun removeFromFavourite(id : Int) : Int
+    fun removeFromFavourite(id: Int): Int
 
     @Query("SELECT * FROM QrResult WHERE result = :result ")
-    fun checkIfQrResultExist(result : String) : Int
+    fun checkIfQrResultExist(result: String): Int
+
+
 }

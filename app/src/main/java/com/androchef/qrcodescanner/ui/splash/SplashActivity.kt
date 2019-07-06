@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import androidx.core.app.ActivityCompat
-import com.androchef.qrcodescanner.MainActivity
+import com.androchef.qrcodescanner.ui.mainactivity.MainActivity
 import com.androchef.qrcodescanner.R
-import java.util.jar.Manifest
 
 class SplashActivity : AppCompatActivity() {
 
@@ -38,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun gotToMainActivity() {
         Handler().postDelayed({
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         },3000)
     }
