@@ -22,9 +22,9 @@ but will be thoroughly reviewed .
 
 ### Contact - Let's become friend
 - [Androchef Blog](https://androchef.com/)
+- [Androchef Youtube](https://www.youtube.com/channel/UCILhpbLSFkGzsiCYAeR30DA)
 - [Github](https://github.com/happysingh23828)
 - [Linkedin](https://www.linkedin.com/in/happpysingh23828/)
-- [Youtube](https://www.youtube.com/channel/UCILhpbLSFkGzsiCYAeR30DA
 
 ### Libraries Used
 - [BarCodeScanner](https://github.com/dm77/barcodescanner)
