@@ -20,6 +20,13 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView
 
 class QRScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
 
+    companion object {
+
+        fun newInstance(): QRScannerFragment {
+            return QRScannerFragment()
+        }
+    }
+
     private lateinit var mView: View
 
     lateinit var scannerView: ZBarScannerView

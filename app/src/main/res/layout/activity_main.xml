@@ -7,17 +7,14 @@
         android:layout_height="match_parent"
         tools:context=".ui.mainactivity.MainActivity">
 
-    <FrameLayout
-            android:id="@+id/fragmentContainer"
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView">
-
-    </FrameLayout>
-
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"

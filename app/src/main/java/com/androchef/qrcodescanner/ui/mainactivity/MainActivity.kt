@@ -1,10 +1,9 @@
 package com.androchef.qrcodescanner.ui.mainactivity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.androchef.qrcodescanner.R
-import com.androchef.qrcodescanner.ui.qrscanner.QRScannerFragment
-import com.androchef.qrcodescanner.ui.scanner_history.ScannedHistoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,42 +11,51 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        onClicks()
-        startQRScannerFragment()
+        setViewPager()
+        setBottomViewListener()
+        setViewPagerListener()
     }
 
-    private fun onClicks() {
+
+    private fun setViewPager() {
+        viewPager.adapter = MainPagerAdapter(supportFragmentManager)
+        viewPager.offscreenPageLimit = 2
+    }
+
+    private fun setBottomViewListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.qrScanMenuId -> {
-                    startQRScannerFragment()
+                    viewPager.currentItem = 0
                 }
                 R.id.scannedResultMenuId -> {
-                    startScannedHistoryFragment()
+                    viewPager.currentItem = 1
+
                 }
                 R.id.favouriteScannedMenuId -> {
-                    startFavouriteHistory()
+                    viewPager.currentItem = 2
                 }
             }
             return@setOnNavigationItemSelectedListener true
         }
     }
 
-    private fun startQRScannerFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, QRScannerFragment()).commit()
-    }
 
-    private fun startScannedHistoryFragment() {
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fragmentContainer,
-            ScannedHistoryFragment.newInstance(ScannedHistoryFragment.ResultListType.ALL_RESULT)
-        ).commit()
-    }
-
-    private fun startFavouriteHistory() {
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fragmentContainer,
-            ScannedHistoryFragment.newInstance(ScannedHistoryFragment.ResultListType.FAVOURITE_RESULT)
-        ).commit()
+    private fun setViewPagerListener() {
+        viewPager.setOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        bottomNavigationView.selectedItemId = R.id.qrScanMenuId
+                    }
+                    1 -> {
+                        bottomNavigationView.selectedItemId = R.id.scannedResultMenuId
+                    }
+                    2 -> {
+                        bottomNavigationView.selectedItemId = R.id.favouriteScannedMenuId
+                    }
+                }
+            }
+        })
     }
 }
