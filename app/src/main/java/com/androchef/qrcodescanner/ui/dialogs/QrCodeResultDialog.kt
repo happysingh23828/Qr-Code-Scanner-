@@ -1,10 +1,13 @@
 package com.androchef.qrcodescanner.ui.dialogs
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings.Global.getString
 import android.text.ClipboardManager
+import android.util.Log
 import android.widget.Toast
 import com.androchef.qrcodescanner.R
 import com.androchef.qrcodescanner.db.DbHelper
@@ -13,6 +16,10 @@ import com.androchef.qrcodescanner.db.database.QrResultDataBase
 import com.androchef.qrcodescanner.db.entities.QrResult
 import com.androchef.qrcodescanner.utils.toFormattedDisplay
 import kotlinx.android.synthetic.main.layout_qr_result_show.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import org.json.JSONObject
+import java.net.URL
 
 
 /**
@@ -79,12 +86,55 @@ class QrCodeResultDialog(var context: Context) {
         dbHelperI.removeFromFavourite(qrResult?.id!!)
     }
 
+
     fun show(recentQrResult: QrResult) {
         this.qrResult = recentQrResult
         dialog.scannedDate.text = qrResult?.calendar?.toFormattedDisplay()
-        dialog.scannedText.text = qrResult!!.result
+        dialog.scannedText.text = "QR Code: " + qrResult!!.result
         dialog.favouriteIcon.isSelected = qrResult!!.favourite
         dialog.show()
+
+
+        val url = "https://qr-scanner-api.herokuapp.com/api/user/" + qrResult!!.result
+
+        dialog.userInfo1.text = ""
+        dialog.userInfo2.text = context.getString(R.string.loading);
+        dialog.userInfo3.text = ""
+        dialog.userInfo4.text = ""
+
+        doAsync{
+
+            val json = URL(url).readText()
+
+            uiThread {
+
+                val obj = JSONObject(json)
+
+                try {
+
+                    if (obj.getString("status") == "success"){
+
+                        dialog.userInfo1.text = "Name: \n" + obj.getJSONObject("data").getString("name")
+                        dialog.userInfo2.text = "Email: \n" + obj.getJSONObject("data").getString("email")
+                        dialog.userInfo3.text = "Field: \n" + obj.getJSONObject("data").getString("field")
+                        dialog.userInfo4.text = "Website: \n" + obj.getJSONObject("data").getString("website")
+                    }
+                    else if (obj.getString("status") == "fail"){
+
+                        dialog.userInfo1.text = ""
+                        dialog.userInfo2.text = obj.getString("message")
+                        dialog.userInfo3.text = ""
+                        dialog.userInfo4.text = ""
+                    }
+                }
+                catch (e: NumberFormatException) {
+
+                    Log.e("Tag", e.toString())
+                }
+
+            }
+       }
+
     }
 
     fun setOnDismissListener(dismissListener: OnDismissListener) {

@@ -20,4 +20,5 @@
         permissions
     </string>
     <string name="grant">Grant</string>
+    <string name="loading">Loading</string>
 </resources>
