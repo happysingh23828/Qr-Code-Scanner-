@@ -4,13 +4,16 @@ import android.app.Dialog
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.text.ClipboardManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.androchef.qrcodescanner.R
 import com.androchef.qrcodescanner.db.DbHelper
 import com.androchef.qrcodescanner.db.DbHelperI
 import com.androchef.qrcodescanner.db.database.QrResultDataBase
 import com.androchef.qrcodescanner.db.entities.QrResult
+import com.androchef.qrcodescanner.utils.ContentCheckUtil.isWebUrl
 import com.androchef.qrcodescanner.utils.toFormattedDisplay
 import kotlinx.android.synthetic.main.layout_qr_result_show.*
 
@@ -66,6 +69,10 @@ class QrCodeResultDialog(var context: Context) {
             dialog.dismiss()
             onDismissListener?.onDismiss()
         }
+
+        dialog.scannedText.setOnClickListener {
+            checkContentAndPerformAction(dialog.scannedText.text.toString())
+        }
     }
 
 
@@ -111,4 +118,21 @@ class QrCodeResultDialog(var context: Context) {
     interface OnDismissListener {
         fun onDismiss()
     }
+
+    // Checking content type and performing action on it.
+    private fun checkContentAndPerformAction(scannedText: String) {
+        when {
+
+            // if it is web url
+            isWebUrl(scannedText) -> {
+
+                // opening web url.
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(scannedText)
+                context.startActivity(i)
+            }
+        }
+    }
+
+
 }
