@@ -102,7 +102,7 @@ class QrCodeResultDialog(var context: Context) {
         dialog.show()
 
         // Fetch Qr code Data via api
-        val url = "https://qr-scanner-api.herokuapp.com/api/user/" + qrResult!!.resul
+        val url = "https://qr-scanner-api.herokuapp.com/api/user/" + qrResult!!.result
         dialog.userInfo1.text = ""
         dialog.userInfo2.text = context.getString(R.string.loading);
         dialog.userInfo3.text = ""
