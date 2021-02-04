@@ -5,6 +5,7 @@ App Features:
 * Automatically saved in Local Database. 
 * Flash Light On/Off Feature
 * Set any QR Result as Favourite.
+* Use Scan Code to fetch data from web.
 # ScreenShots
 <img src="https://github.com/happysingh23828/Qr-Code-Scanner-/blob/master/screenshots/qr-splash-screen.png" height="500px"><img src="https://github.com/happysingh23828/Qr-Code-Scanner-/blob/master/screenshots/qr-scanner-without-flash.png" height="500px"><img src="https://github.com/happysingh23828/Qr-Code-Scanner-/blob/master/screenshots/qr-scanner-with-flash.png" height="500px">
 
